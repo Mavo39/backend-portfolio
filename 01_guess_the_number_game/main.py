@@ -19,3 +19,5 @@ while n >= m:
    input("Your inputed minimum number was bigger than maximum one. Please input again. (Press Enter)")
    m = get_integer("Input maximum number: ")
 
+answer = random.randint(n,m)
+

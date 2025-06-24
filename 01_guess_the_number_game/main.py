@@ -43,3 +43,12 @@ if mode == 1:
         else:
             input("Try again!(Press Enter)\n")
 
+else:
+    while True:
+        inputed = int(input("Your input number is : "))
+
+        if(inputed == answer):
+            input("\nCongratulations!!\nPress Enter to finish this game")
+            break
+        else:
+            input("Try again!(Press Enter)\n")

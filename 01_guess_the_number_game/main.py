@@ -27,3 +27,19 @@ while mode not in [1,2]:
     mode = get_integer("\nPlease select integer 1 or 2\n1: Limited attempts\n2: Unlimited attempts\nYour select: ")
 
 print(f"\nYou can input between {n} to {m}\n")
+
+if mode == 1:
+    attempts = get_integer("How many times do you want to challenge???\nPlease input attempts number\nAttemps: ")
+
+    for i in range(attempts):
+        inputed = int(input("Your input number is : "))
+
+        if(inputed == answer):
+            input("\nCongratulations!!\nPress Enter to finish this game")
+            break
+        elif(attempts == 0):
+            input("\nGame Over...(Press Enter)")
+            break
+        else:
+            input("Try again!(Press Enter)\n")
+

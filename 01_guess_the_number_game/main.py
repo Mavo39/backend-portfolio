@@ -1,7 +1,7 @@
 import sys
 import random
 
-input("Welcome to 'Guess the number game'!\nFirst, you'll set the minimum and maximum numbers.\nThen, try to guess the number chosen within that range.(Press Enter)\n")
+print("Welcome to 'Guess the number game'!\nFirst, you'll set the minimum and maximum numbers.\nThen, try to guess the number chosen within that range.(Press Enter)\n")
 
 # 整数を入力するための関数
 def get_integer(prompt):
@@ -28,8 +28,9 @@ answer = random.randint(n,m)
 mode = 0
 while mode not in [1,2]:
     mode = get_integer("Please select game mode 1 or 2 (1: Limited attempts / 2: Unlimited attempts)\nYour select is: ")
+    print()
 
-print(f"\nYou can input between {n} and {m}")
+print(f"You can input between {n} and {m}\n")
 
 # メッセージ
 msg_congrats = "Congratulations!!\nPress Enter to finish the game."

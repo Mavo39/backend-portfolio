@@ -43,16 +43,19 @@ if mode == 1:
     attempts = get_integer("How many times do you want to challenge???\nAttemps: ")
 
     for i in range(attempts):
-        inputed = int(input("Your input number is: "))
+        guess = int(input(msg_input_number))
 
-        if(inputed == answer):
-            input("\nCongratulations!!\nPress Enter to finish this game")
+        if guess == answer:
+            input(msg_congrats)
             break
-        elif(attempts == 0):
-            input("\nGame Over...(Press Enter)")
-            break
+        elif guess < n or guess > m:
+            print(msg_out_of_range)
+        elif guess > answer:
+            print(msg_high)
+            print(msg_try_again)
         else:
-            input("Try again!(Press Enter)\n")
+            print(msg_low)
+            print(msg_try_again)
 
 # モード2
 else:

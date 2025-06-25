@@ -47,7 +47,7 @@ if mode == 1:
     max_attempts = m - n + 1
 
     while attempts < 1 or attempts > max_attempts:
-        attempts = get_integer(f"How many times do you want to try???(Max: {max_attempts})\nAttemps: ")
+        attempts = get_integer(f"How many attempts do you want to try???(Max: {max_attempts})\nAttemps: ")
         if attempts > max_attempts: 
             print(f"You can try up to {max_attempts} attempts.\nPlease input within that range.\n")
         elif attempts < 1:

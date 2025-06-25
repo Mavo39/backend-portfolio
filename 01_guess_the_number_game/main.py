@@ -33,6 +33,7 @@ print(f"\nYou can input between {n} to {m}\n")
 msg_congrats = "\nCongratulations!!\nPress Enter to finish the game."
 msg_game_over = "\nGame Over... The correct answer was {answer}.\n(Press Enter)"
 msg_try_again = "Try again! (Press Enter)\n"
+msg_input_number = "Your input number is: "
 msg_out_of_range = "Your input is out of range ({n} - {m})!\n"
 msg_high = "Too high!\n"
 msg_low = "Too low!\n"

@@ -20,6 +20,7 @@ print()
 while n >= m:
    input("Your inputed minimum number was bigger than maximum one. Please input again. (Press Enter)")
    m = get_integer("Maximum number: ")
+   print()
 
 # ランダム値の生成
 answer = random.randint(n,m)

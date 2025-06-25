@@ -85,3 +85,9 @@ else:
             print(msg_high + msg_try_again)
         else:
             print(msg_low + msg_try_again)
+
+        user_continue = input("Do you want to continue? (y/n): ").strip().lower()
+
+        if user_continue == "n":
+            print(msg_game_over.format(answer=answer))
+            break

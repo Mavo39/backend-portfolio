@@ -39,8 +39,8 @@ msg_game_over = "Game Over... The correct answer was {answer}."
 msg_try_again = " Try again!"
 msg_input_number = "\nYour input number is: "
 msg_out_of_range = "Your input is out of range ({n} - {m})!"
-msg_high = "Too high!"
-msg_low = "Too low!"
+msg_high = "Too high!\n"
+msg_low = "Too low!\n"
 
 # モード1
 if mode == 1:
@@ -59,7 +59,7 @@ if mode == 1:
         guess = int(input(msg_input_number))
 
         if guess == answer:
-            print(msg_congrats.format(answer=answer))
+            print(msg_congrats)
             break
         elif guess < n or guess > m:
             print(msg_out_of_range.format(n=n, m=m))
@@ -77,7 +77,7 @@ else:
         guess = int(input(msg_input_number))
 
         if guess == answer:
-            print(msg_congrats.format(answer=answer))
+            print(msg_congrats)
             break
         elif guess < n or guess > m:
             print(msg_out_of_range.format(n=n, m=m))

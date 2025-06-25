@@ -16,10 +16,12 @@ n = get_integer("Minimum number: ")
 m = get_integer("Maximum number: ")
 print()
 
+# 入力値エラー
 while n >= m:
    input("Your inputed minimum number was bigger than maximum one. Please input again. (Press Enter)")
    m = get_integer("Maximum number: ")
 
+# ランダム値の生成
 answer = random.randint(n,m)
 
 # モード選択

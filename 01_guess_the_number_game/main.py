@@ -12,13 +12,13 @@ def get_integer(prompt):
             print("Please enter a valid integer.\n")
 
 # 最小値と最大値の入力
-n = get_integer("Input minimum number: ")
-m = get_integer("Input maximum number: ")
+n = get_integer("Minimum number: ")
+m = get_integer("Maximum number: ")
 print()
 
 while n >= m:
    input("Your inputed minimum number was bigger than maximum one. Please input again. (Press Enter)")
-   m = get_integer("Input maximum number: ")
+   m = get_integer("Maximum number: ")
 
 answer = random.randint(n,m)
 
@@ -27,7 +27,7 @@ mode = 0
 while mode not in [1,2]:
     mode = get_integer("Please select game mode 1 or 2 (1: Limited attempts / 2: Unlimited attempts)\nYour select is: ")
 
-print(f"\nYou can input between {n} and {m}\n")
+print(f"\nYou can input between {n} and {m}")
 
 # メッセージ
 msg_congrats = "Congratulations!!\nPress Enter to finish the game."
@@ -68,12 +68,16 @@ if mode == 1:
 # モード2
 else:
     while True:
-        inputed = int(input("Your input number is: "))
+        guess = int(input(msg_input_number))
 
-        if inputed == answer:
-            input("\nCongratulations!!\nPress Enter to finish this game")
+        if guess == answer:
+            print(msg_congrats.format(answer=answer))
             break
-        elif inputed > answer:
-            input("Your inputed number is too large\nTry again!(Press Enter)\n")
+        elif guess < n or guess > m:
+            print(msg_out_of_range.format(n=n, m=m))
+        elif guess > answer:
+            print(msg_high)
+            print(msg_try_again)
         else:
-            input("Your inputed number is too small\nTry again!(Press Enter)\n")
+            print(msg_low)
+            print(msg_try_again)

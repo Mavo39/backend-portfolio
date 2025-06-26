@@ -92,8 +92,12 @@ else:
         if check_guess(guess, answer, n, m):
             break
 
-        user_continue = input("Do you want to continue? (y/n): ").strip().lower()
-
-        if user_continue == "n":
-            print(msg_game_over.format(answer=answer))
-            break
+        while True:
+            user_continue = input("Do you want to continue? (y/n): ").strip().lower()
+            if user_continue == "y":
+                break
+            elif user_continue == "n":
+                print(msg_game_over.format(answer=answer))
+                exit()
+            else:
+                print("Please enter 'y' or 'n'.")

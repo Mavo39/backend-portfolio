@@ -9,7 +9,7 @@ def get_integer(prompt):
         try:
             return int(input(prompt))
         except ValueError:
-            print("Please enter a valid integer.\n")
+            print("Please input a valid integer.\n")
 
 # 最小値と最大値の入力
 n = get_integer("Minimum number: ")
@@ -34,8 +34,8 @@ while mode not in [1,2]:
 print(f"You can input between {n} and {m}")
 
 # メッセージ
-msg_congrats = "Congratulations!!"
-msg_game_over = "Game Over... The correct answer was {answer}."
+msg_congrats = "\nCongratulations!!"
+msg_game_over = "\nGame Over... The correct answer was {answer}."
 msg_try_again = "Try again!"
 msg_input_number = "\nYour input number is: "
 msg_out_of_range = "Your input is out of range ({n} - {m})!"
@@ -55,6 +55,13 @@ def check_guess(guess, answer, n, m):
         print(msg_low + msg_try_again)
     return False
 
+# 予想数字を安全に入力する関数
+def get_guess(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Please input a valid integer.")
 
 # モード1
 if mode == 1:
@@ -70,7 +77,7 @@ if mode == 1:
             print("Please enter at least 1 attempt.\n")
 
     for i in range(attempts):
-        guess = int(input(msg_input_number))
+        guess = get_guess(msg_input_number)
 
         if check_guess(guess, answer, n, m):
             break
@@ -81,7 +88,7 @@ if mode == 1:
 # モード2
 else:
     while True:
-        guess = int(input(msg_input_number))
+        guess = get_guess(msg_input_number)
 
         if check_guess(guess, answer, n, m):
             break

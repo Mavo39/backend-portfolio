@@ -39,7 +39,7 @@ backend-portfolio/
 
 | No. | 課題名 | 内容 | 使用言語 | Qiita記事 |
 |-----|-------|-----|---------|----------|
-| 01 | Guess the number game | 標準入力・出力処理 | Python | [記事を読む](準備中) |
+| 01 | Guess the number game | 標準入力・出力処理 | Python | [記事を読む](https://qiita.com/mabo23/items/b0c5fcf4e2bc35348b7f) |
 | ... | ... | ... | ... | ... |
 
 

@@ -8,7 +8,7 @@ def get_integer(prompt):
         try:
             return int(input(prompt))
         except ValueError:
-            print("Please input a valid integer.\n")
+            print("Please enter a valid number.\n")
 
 # 最小値と最大値の入力
 n = get_integer("Minimum number: ")
@@ -17,7 +17,7 @@ print()
 
 # 入力値エラー
 while n >= m:
-   input("Your inputed minimum number was bigger than maximum one. Please input again. (Press Enter)")
+   print("The minimum number you entered is greater than the maximum number. Please enter the values again.")
    m = get_integer("Maximum number: ")
    print()
 
@@ -30,7 +30,7 @@ while mode not in [1,2]:
     mode = get_integer("Please select game mode 1 or 2 (1: Limited attempts / 2: Unlimited attempts)\nYour select is: ")
     print()
 
-print(f"You can input between {n} and {m}")
+print(f"You can enter between {n} and {m}")
 
 # メッセージ
 msg_congrats = "\nCongratulations!!"
@@ -60,7 +60,7 @@ def get_guess(prompt):
         try:
             return int(input(prompt))
         except ValueError:
-            print("Please input a valid integer.")
+            print("Please enter a valid number.")
 
 # モード1
 if mode == 1:

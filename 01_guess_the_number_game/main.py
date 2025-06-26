@@ -1,4 +1,3 @@
-import sys
 import random
 
 print("Welcome to 'Guess the number game'!\nFirst, you'll set the minimum and maximum numbers.\nThen, try to guess the number chosen within that range.\n")

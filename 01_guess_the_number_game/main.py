@@ -36,11 +36,25 @@ print(f"You can input between {n} and {m}")
 # メッセージ
 msg_congrats = "Congratulations!!"
 msg_game_over = "Game Over... The correct answer was {answer}."
-msg_try_again = " Try again!"
+msg_try_again = "Try again!"
 msg_input_number = "\nYour input number is: "
 msg_out_of_range = "Your input is out of range ({n} - {m})!"
 msg_high = "Too high!\n"
 msg_low = "Too low!\n"
+
+# 予想数字を判定する関数
+def check_guess(guess, answer, n, m):
+    if guess == answer:
+        print(msg_congrats)
+        return True
+    elif guess < n or guess > m:
+        print(msg_out_of_range.format(n=n, m=m))
+    elif guess > answer:
+        print(msg_high + msg_try_again)
+    else:
+        print(msg_low + msg_try_again)
+    return False
+
 
 # モード1
 if mode == 1:
@@ -58,15 +72,8 @@ if mode == 1:
     for i in range(attempts):
         guess = int(input(msg_input_number))
 
-        if guess == answer:
-            print(msg_congrats)
+        if check_guess(guess, answer, n, m):
             break
-        elif guess < n or guess > m:
-            print(msg_out_of_range.format(n=n, m=m))
-        elif guess > answer:
-            print(msg_high + msg_try_again)
-        else:
-            print(msg_low + msg_try_again)
     
     else:
         print(msg_game_over.format(answer=answer))
@@ -76,15 +83,8 @@ else:
     while True:
         guess = int(input(msg_input_number))
 
-        if guess == answer:
-            print(msg_congrats)
+        if check_guess(guess, answer, n, m):
             break
-        elif guess < n or guess > m:
-            print(msg_out_of_range.format(n=n, m=m))
-        elif guess > answer:
-            print(msg_high + msg_try_again)
-        else:
-            print(msg_low + msg_try_again)
 
         user_continue = input("Do you want to continue? (y/n): ").strip().lower()
 

@@ -44,4 +44,4 @@ python3 main.py
 - ターミナルまたはコマンドライン環境
 
 ## その他
-学習記録をQiitaにまとめています(準備中)
+学習記録をQiitaにまとめています(https://qiita.com/mabo23/items/b0c5fcf4e2bc35348b7f)

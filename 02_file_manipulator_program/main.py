@@ -11,9 +11,7 @@ def read_file(inputpath):
 
 # reverse
 def reverse_file(inputpath, outputpath):
-    # ファイルの読み込み
-    with open(inputpath, 'r', encoding="utf-8") as f:
-        contents = f.read()
+    contents = read_file(inputpath)
     
     # ファイルに書き込み
     with open(outputpath, 'w', encoding='utf-8') as f:
@@ -21,9 +19,7 @@ def reverse_file(inputpath, outputpath):
     
 # copy
 def copy_file(inputpath, outputpath):
-    # ファイルの読み込み
-    with open(inputpath, 'r', encoding='utf-8') as f:
-        contents = f.read()
+    contents = read_file(inputpath)
     
     # ファイルに書き込み
     with open(outputpath, 'w', encoding='utf-8') as f:

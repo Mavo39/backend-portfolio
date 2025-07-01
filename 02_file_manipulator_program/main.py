@@ -1,6 +1,14 @@
 import sys
 import os
 
+# バリデーション
+
+
+# ファイルの読み込み
+def read_file(inputpath):
+    with open(inputpath, 'r', encoding="utf-8") as f:
+        return f.read()
+
 # reverse
 def reverse_file(inputpath, outputpath):
     # ファイルの読み込み

@@ -2,6 +2,17 @@ import sys
 import os
 
 # バリデーション
+## パス
+def validate_path(path):
+    return os.path.exists(path)
+
+## 文字列
+def is_string(string):
+    return isinstance(string, str)
+
+## 数字
+def is_int(num):
+    return isinstance(num, int)
 
 # ファイルの読み込み
 def read_file(inputpath):

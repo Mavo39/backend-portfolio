@@ -3,7 +3,6 @@ import os
 
 # バリデーション
 
-
 # ファイルの読み込み
 def read_file(inputpath):
     with open(inputpath, 'r', encoding="utf-8") as f:
@@ -27,6 +26,16 @@ def copy_file(inputpath, outputpath):
 
 
 # duplicate-contents
+def duplicate_file_contents(inputpath, n):
+    # n のバリデーションチェック（後ほど実装）
+
+    # ファイルの読み込み
+    contents = read_file(inputpath)
+
+    # ファイルの末尾に追記
+    with open(inputpath, 'a', encoding='utf-8') as f:
+        for i in range(n):
+            f.write(contents)
 
 
 # replace-string

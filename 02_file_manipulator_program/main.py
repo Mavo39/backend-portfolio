@@ -37,6 +37,16 @@ def duplicate_file_contents(inputpath, n):
         for i in range(n):
             f.write(contents)
 
-
 # replace-string
+def replace_file_string(inputpath, needle, newString):
+    # 文字列とファイルパスのバリデーション（後ほど追加）
 
+    # ファイルの読み込み
+    contents = read_file(inputpath)
+
+    # 文字列の置換
+    contents = contents.replace(needle, newString)
+
+    # 既存ファイルに書き込み
+    with open(inputpath, 'w', encoding='utf-8') as f:
+        f.write(contents)

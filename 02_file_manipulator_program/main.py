@@ -27,18 +27,12 @@ def write_file(path, contents):
 # reverse
 def reverse_file(inputpath, outputpath):
     contents = read_file(inputpath)
-    
-    # ファイルに書き込み
-    with open(outputpath, 'w', encoding='utf-8') as f:
-        f.write(contents[::-1])
+    write_file(outputpath, contents[::-1])
     
 # copy
 def copy_file(inputpath, outputpath):
     contents = read_file(inputpath)
-    
-    # ファイルに書き込み
-    with open(outputpath, 'w', encoding='utf-8') as f:
-        f.write(contents)
+    write_file(outputpath, contents)
 
 
 # duplicate-contents
@@ -64,5 +58,4 @@ def replace_file_string(inputpath, needle, newString):
     contents = contents.replace(needle, newString)
 
     # 既存ファイルに書き込み
-    with open(inputpath, 'w', encoding='utf-8') as f:
-        f.write(contents)
+    write_file(inputpath, contents)

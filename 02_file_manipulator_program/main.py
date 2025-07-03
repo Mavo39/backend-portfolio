@@ -35,21 +35,20 @@ def write_file(path, contents):
 
 # reverse
 def reverse_file(inputpath, outputpath):
+    validate_path(inputpath)
     contents = read_file(inputpath)
     write_file(outputpath, contents[::-1])
     
 # copy
 def copy_file(inputpath, outputpath):
+    validate_path(inputpath)
     contents = read_file(inputpath)
     write_file(outputpath, contents)
 
 # duplicate-contents
 def duplicate_file_contents(inputpath, n):
-    # n のバリデーションチェック（後ほど実装）
-
-    # ファイルの読み込み
+    validate_int(n)
     contents = read_file(inputpath)
-
     # ファイルの末尾に追記
     with open(inputpath, 'a', encoding='utf-8') as f:
         for i in range(n):
@@ -57,13 +56,10 @@ def duplicate_file_contents(inputpath, n):
 
 # replace-string
 def replace_file_string(inputpath, needle, newString):
-    # 文字列とファイルパスのバリデーション（後ほど追加）
-
-    # ファイルの読み込み
+    validate_string(needle)
+    validate_string(newString)
     contents = read_file(inputpath)
-
     # 文字列の置換
     contents = contents.replace(needle, newString)
-
     # 既存ファイルに書き込み
     write_file(inputpath, contents)

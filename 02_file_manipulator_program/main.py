@@ -47,6 +47,7 @@ def copy_file(inputpath, outputpath):
 
 # duplicate-contents
 def duplicate_file_contents(inputpath, n):
+    validate_path(inputpath)
     validate_int(n)
     contents = read_file(inputpath)
     # ファイルの末尾に追記

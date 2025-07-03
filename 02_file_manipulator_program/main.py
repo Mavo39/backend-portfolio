@@ -15,9 +15,14 @@ def is_int(num):
     return isinstance(num, int)
 
 # ファイルの読み込み
-def read_file(inputpath):
-    with open(inputpath, 'r', encoding="utf-8") as f:
+def read_file(path):
+    with open(path, 'r', encoding="utf-8") as f:
         return f.read()
+    
+# ファイルへ書き込み
+def write_file(path, contents):
+    with open(path, 'w', encoding='utf-8') as f:
+        return f.write(contents)
 
 # reverse
 def reverse_file(inputpath, outputpath):

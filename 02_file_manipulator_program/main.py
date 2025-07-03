@@ -4,7 +4,9 @@ import os
 # バリデーション
 ## パス
 def validate_path(path):
-    return os.path.exists(path)
+    if not os.path.exists(path):
+        print(f"error: {path} does not exist.")
+        sys.exit(1)
 
 ## 文字列
 def is_string(string):

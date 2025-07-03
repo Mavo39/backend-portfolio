@@ -9,8 +9,10 @@ def validate_path(path):
         sys.exit(1)
 
 ## 文字列
-def is_string(string):
-    return isinstance(string, str)
+def validate_string(string):
+    if not isinstance(string, str):
+        print(f"error: '{string}' is not a string. Please procide a valid string.")
+        sys.exit(1)
 
 ## 数字
 def is_int(num):
@@ -35,7 +37,6 @@ def reverse_file(inputpath, outputpath):
 def copy_file(inputpath, outputpath):
     contents = read_file(inputpath)
     write_file(outputpath, contents)
-
 
 # duplicate-contents
 def duplicate_file_contents(inputpath, n):

@@ -57,6 +57,7 @@ def duplicate_file_contents(inputpath, n):
 
 # replace-string
 def replace_file_string(inputpath, needle, newString):
+    validate_path(inputpath)
     validate_string(needle)
     validate_string(newString)
     contents = read_file(inputpath)
@@ -64,3 +65,4 @@ def replace_file_string(inputpath, needle, newString):
     contents = contents.replace(needle, newString)
     # 既存ファイルに書き込み
     write_file(inputpath, contents)
+

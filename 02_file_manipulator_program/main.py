@@ -93,7 +93,7 @@ def main():
             print("error: 'duplicate-contents' requires 2 arguments")
             sys.exit(1)
         n = int(sys.argv[3])
-        duplicate_file_contents(sys.argv[2], sys.argv[3])
+        duplicate_file_contents(sys.argv[2], n)
 
     elif command == "replace-string":
         if len(sys.argv) != 5:

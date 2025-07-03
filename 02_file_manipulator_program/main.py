@@ -13,7 +13,7 @@ def validate_path(path):
 ## 文字列
 def validate_string(string):
     if not isinstance(string, str):
-        print(f"error: '{string}' is not a string. Please procide a valid string.")
+        print(f"error: '{string}' is not a string. Please provide a valid string.")
         sys.exit(1)
 
 ## 数字
@@ -92,7 +92,8 @@ def main():
         if len(sys.argv) != 4:
             print("error: 'duplicate-contents' requires 2 arguments")
             sys.exit(1)
-        duplicate_file_contents(sys.argv[2], sys.argv[3])
+        n = int(sys.argv[3])
+        duplicate_file_contents(sys.argv[2], n)
 
     elif command == "replace-string":
         if len(sys.argv) != 5:

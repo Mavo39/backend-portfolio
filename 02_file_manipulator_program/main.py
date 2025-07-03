@@ -4,8 +4,10 @@ import os
 # バリデーション
 ## パス
 def validate_path(path):
-    if not os.path.exists(path):
-        print(f"error: {path} does not exist.")
+    abs_path = os.path.abspath(path)
+
+    if not os.path.exists(abs_path):
+        print(f"error: {abs_path} does not exist.")
         sys.exit(1)
 
 ## 文字列

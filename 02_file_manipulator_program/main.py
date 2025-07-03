@@ -66,3 +66,41 @@ def replace_file_string(inputpath, needle, newString):
     # 既存ファイルに書き込み
     write_file(inputpath, contents)
 
+def main():
+    if len(sys.argv) < 2:
+        print("error: No specified command.")
+        sys.exit(1)
+
+    command = sys.argv[1]
+    validate_string(command)
+
+    if command == "reverse":
+        if len(sys.argv) != 4:
+            print("error: 'reverse' requires 2 arguments")
+            sys.exit(1)
+        reverse_file(sys.argv[2], sys.argv[3])
+
+    elif command == "copy":
+        if len(sys.argv) != 4:
+            print("error: 'copy' requires 2 arguments")
+            sys.exit(1)
+        copy_file(sys.argv[2], sys.argv[3])
+
+    elif command == "duplicate-contents":
+        if len(sys.argv) != 4:
+            print("error: 'duplicate-contents' requires 2 arguments")
+            sys.exit(1)
+        duplicate_file_contents(sys.argv[2], sys.argv[3])
+
+    elif command == "replace-string":
+        if len(sys.argv) != 5:
+            print("error: 'replace-string' requires 3 arguments")
+            sys.exit(1)
+        replace_file_string(sys.argv[2], sys.argv[3], sys.argv[4])
+
+    else:
+        print(f"error: '{command}' is not defined.")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

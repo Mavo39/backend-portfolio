@@ -15,8 +15,13 @@ def validate_string(string):
         sys.exit(1)
 
 ## 数字
-def is_int(num):
-    return isinstance(num, int)
+def validate_int(num):
+    if not isinstance(num, int):
+        print(f"error: '{num}' is not an integer. Please provide a valid integer.")
+        sys.exit(1)   
+    elif num <= 0:
+        print(f"error: {num} is not a positive integer. Please provide a valid integer.")
+        sys.exit(1)
 
 # ファイルの読み込み
 def read_file(path):

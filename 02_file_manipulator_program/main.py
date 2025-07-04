@@ -9,21 +9,28 @@ def validate_path(path):
     if not os.path.exists(abs_path):
         print(f"error: {abs_path} does not exist.")
         sys.exit(1)
+    return abs_path
 
 ## 文字列
 def validate_string(string):
     if not isinstance(string, str):
         print(f"error: '{string}' is not a string. Please provide a valid string.")
         sys.exit(1)
+    return string
 
 ## 数字
 def validate_int(num):
-    if not isinstance(num, int):
+    try:
+        num = int(num)
+    except ValueError:
         print(f"error: '{num}' is not an integer. Please provide a valid integer.")
-        sys.exit(1)   
-    elif num <= 0:
+        sys.exit(1)  
+
+    if num <= 0:
         print(f"error: {num} is not a positive integer. Please provide a valid integer.")
         sys.exit(1)
+        
+    return int(num)
 
 # ファイルの読み込み
 def read_file(path):
@@ -37,7 +44,7 @@ def write_file(path, contents):
 
 # reverse
 def reverse_file(inputpath, outputpath):
-    validate_path(inputpath)
+    inputpath = validate_path(inputpath)
     contents = read_file(inputpath)
     write_file(outputpath, contents[::-1])
     

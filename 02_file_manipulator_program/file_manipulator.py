@@ -18,7 +18,7 @@ def validate_string(string):
         sys.exit(1)
     return string
 
-## 数字
+## 数値
 def validate_int(num):
     try:
         num = int(num)
@@ -30,16 +30,18 @@ def validate_int(num):
         print(f"error: {num} is not a positive integer. Please provide a valid integer.")
         sys.exit(1)
 
-    return int(num)
+    return num
 
 # ファイルの読み込み
 def read_file(path):
-    with open(path, 'r', encoding="utf-8") as f:
+    validated_path = validate_path(path)
+    with open(validated_path, 'r', encoding="utf-8") as f:
         return f.read()
     
 # ファイルへ書き込み
 def write_file(path, contents):
-    with open(path, 'w', encoding='utf-8') as f:
+    validated_path = validate_path(path)
+    with open(validated_path, 'w', encoding='utf-8') as f:
         return f.write(contents)
 
 # reverse

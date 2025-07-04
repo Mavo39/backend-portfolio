@@ -2,7 +2,6 @@
 
 ## 概要
 このプログラムは、コマンドラインからファイルのコピー・反転・内容の複製・文字列置換といった基本的な操作を実行できるCLIツールです。  
-OSによるファイル操作の基本を理解することを目的としています。
 
 ## 背景・目的
 この課題は学習サイト「RecursionCS」で出題された演習の1つです。  
@@ -50,4 +49,4 @@ python3 file_manipulator.py replace-string <inputpath> <needle> <newstring>
 - ターミナルまたはコマンドライン環境
 
 ## その他
-学習記録をQiitaにまとめています(準備中)
+学習記録をQiitaにまとめています(https://qiita.com/mabo23/items/4881206cfa5b658bb8b3)

@@ -67,15 +67,15 @@ def duplicate_file_contents(inputpath, n):
             f.write(contents)
 
 # replace-string
-def replace_file_string(inputpath, needle, newString):
+def replace_file_string(inputpath, needle, newstring):
     validated_inputpath =  validate_path(inputpath)
     validated_needle = validate_string(needle)
-    validated_newString = validate_string(newString)
+    validated_newstring = validate_string(newstring)
     contents = read_file(validated_inputpath)
     # 文字列の置換
-    contents = contents.replace(validated_needle, validated_newString)
+    contents = contents.replace(validated_needle, validated_newstring)
     # 既存ファイルに書き込み
-    write_file(inputpath, contents)
+    write_file(validated_inputpath, contents)
 
 def main():
     if len(sys.argv) < 2:

@@ -74,7 +74,6 @@ def main():
         sys.exit(1)
 
     command = sys.argv[1]
-    validate_string(command)
 
     if command == "reverse":
         if len(sys.argv) != 4:

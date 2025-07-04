@@ -29,7 +29,7 @@ def validate_int(num):
     if num <= 0:
         print(f"error: {num} is not a positive integer. Please provide a valid integer.")
         sys.exit(1)
-        
+
     return int(num)
 
 # ファイルの読み込み
@@ -44,34 +44,34 @@ def write_file(path, contents):
 
 # reverse
 def reverse_file(inputpath, outputpath):
-    inputpath = validate_path(inputpath)
-    contents = read_file(inputpath)
+    validated_inputpath = validate_path(inputpath)
+    contents = read_file(validated_inputpath)
     write_file(outputpath, contents[::-1])
     
 # copy
 def copy_file(inputpath, outputpath):
-    validate_path(inputpath)
-    contents = read_file(inputpath)
+    validated_inputpath = validate_path(inputpath)
+    contents = read_file(validated_inputpath)
     write_file(outputpath, contents)
 
 # duplicate-contents
 def duplicate_file_contents(inputpath, n):
-    validate_path(inputpath)
-    validate_int(n)
-    contents = read_file(inputpath)
+    validated_inputpath = validate_path(inputpath)
+    validated_n = validate_int(n)
+    contents = read_file(validated_inputpath)
     # ファイルの末尾に追記
-    with open(inputpath, 'a', encoding='utf-8') as f:
-        for i in range(n):
+    with open(validated_inputpath, 'a', encoding='utf-8') as f:
+        for i in range(validated_n):
             f.write(contents)
 
 # replace-string
 def replace_file_string(inputpath, needle, newString):
-    validate_path(inputpath)
-    validate_string(needle)
-    validate_string(newString)
-    contents = read_file(inputpath)
+    validated_inputpath =  validate_path(inputpath)
+    validated_needle = validate_string(needle)
+    validated_newString = validate_string(newString)
+    contents = read_file(validated_inputpath)
     # 文字列の置換
-    contents = contents.replace(needle, newString)
+    contents = contents.replace(validated_needle, validated_newString)
     # 既存ファイルに書き込み
     write_file(inputpath, contents)
 

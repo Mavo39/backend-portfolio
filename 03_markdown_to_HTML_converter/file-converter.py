@@ -13,3 +13,11 @@ def is_inputfile_markdown():
 
 def outputfile_already_exists():
     return len(sys.argv) > 3 and os.path.exists(sys.argv[3])
+
+def read_file(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+    
+def write_file(path):
+    with open(path, "w", encoding="utf-8") as f:
+        return f.write()

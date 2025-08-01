@@ -18,6 +18,12 @@ def read_file(path):
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
     
-def write_file(path):
+def write_file(path, content):
     with open(path, "w", encoding="utf-8") as f:
-        return f.write()
+        return f.write(content)
+    
+def read_markdown_file():
+    if is_valid_inputfile_path() and is_inputfile_markdown():
+        return read_file(sys.argv[2])
+    else:
+        print("This file is not a markdown file.")

@@ -10,3 +10,6 @@ def is_valid_inputfile_path():
 
 def is_inputfile_markdown():
     return len(sys.argv) > 2 and sys.argv[2].strip().lower().endswith(".md")
+
+def outputfile_already_exists():
+    return len(sys.argv) > 3 and os.path.exists(sys.argv[3])

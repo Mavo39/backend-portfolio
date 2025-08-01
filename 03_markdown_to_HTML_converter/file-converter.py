@@ -27,3 +27,12 @@ def read_markdown_file():
         return read_file(sys.argv[2])
     else:
         print("This file is not a markdown file.")
+
+def markdown_to_html(md_text):
+    extentions = [
+        'extra',
+        'codehilite',
+        'toc',
+        'nl2br',
+    ]
+    return markdown.markdown(md_text, extensions=extentions)

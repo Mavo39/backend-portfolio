@@ -12,10 +12,6 @@ def is_inputfile_markdown():
     return len(sys.argv) > 2 and sys.argv[2].strip().lower().endswith(".md")
 
 def validate_inputfile():
-    if not is_markdown():
-        print("Please use correct command 'markdown'.")
-        sys.exit(1)
-    
     if not is_valid_inputfile_path():
         print("This file does not exist.")
         sys.exit(1)
@@ -31,6 +27,17 @@ def is_valid_outputfile_path():
 
 def is_outputfile_html():
     return len(sys.argv) > 3 and sys.argv[3].strip().lower().endswith(".html")
+
+def validate_outputfile():
+    if not is_valid_outputfile_path():
+        print("Please enter a valid output file path.")
+        sys.exit(1)
+    
+    if not is_outputfile_html():
+        print("Output file must have a '.html' extension.")
+        sys.exit(1)
+
+    return True
 
 def read_file(path):
     with open(path, "r", encoding="utf-8") as f:

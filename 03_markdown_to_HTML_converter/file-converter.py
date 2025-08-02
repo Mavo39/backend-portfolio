@@ -74,3 +74,4 @@ def convert_markdown_to_html():
 
 if __name__ == "__main__":
     convert_markdown_to_html()
+    print("Markdown converted to HTML successfully.")

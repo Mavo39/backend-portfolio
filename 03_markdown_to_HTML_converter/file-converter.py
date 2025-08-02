@@ -23,7 +23,7 @@ def read_file(path):
     
 def write_file(path, content):
     with open(path, "w", encoding="utf-8") as f:
-        return f.write(content)
+        f.write(content)
     
 def read_markdown_file():
     if not is_valid_inputfile_path():

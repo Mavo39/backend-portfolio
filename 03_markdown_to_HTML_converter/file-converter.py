@@ -14,6 +14,9 @@ def is_valid_outputfile_path():
 def is_inputfile_markdown():
     return len(sys.argv) > 2 and sys.argv[2].strip().lower().endswith(".md")
 
+def is_outputfile_html():
+    return len(sys.argv) > 3 and sys.argv[3].strip().lower().endswith(".html")
+
 def read_file(path):
     with open(path, "r", encoding="utf-8") as f:
         return f.read()

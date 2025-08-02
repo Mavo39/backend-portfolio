@@ -67,8 +67,10 @@ def convert_markdown_to_html():
 
     validate_outputfile()
     output_file = sys.argv[3]
-    
+
     md_text = read_markdown_file()
     html = markdown_to_html(md_text)
     write_file(output_file, html)
 
+if __name__ == "__main__":
+    convert_markdown_to_html()

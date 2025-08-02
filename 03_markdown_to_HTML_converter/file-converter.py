@@ -48,14 +48,7 @@ def write_file(path, content):
         f.write(content)
     
 def read_markdown_file():
-    if not is_valid_inputfile_path():
-        print("This file does not exist.")
-        sys.exit(1)
-
-    if not is_inputfile_markdown():
-        print("This file is not a markdown file.")
-        sys.exit(1)
-
+    validate_inputfile()
     return read_file(sys.argv[2])
         
 def markdown_to_html(md_text):

@@ -30,7 +30,7 @@ def read_markdown_file():
     if not is_inputfile_markdown():
         print("This file is not a markdown file.")
         sys.exit(1)
-        
+
     return read_file(sys.argv[2])
         
 def markdown_to_html(md_text):
@@ -41,3 +41,16 @@ def markdown_to_html(md_text):
         'nl2br',
     ]
     return markdown.markdown(md_text, extensions=extensions)
+
+def convert_markdown_to_html():
+    if not is_markdown():
+        print("Please use correct command 'markdown'")
+        sys.exit(1)
+    
+    md_text = read_markdown_file()
+    html = markdown_to_html(md_text)
+    
+    if not len(sys.argv[3]) > 3:
+        print("Enter output path or file")
+
+    write_file(sys.argv[3], html)

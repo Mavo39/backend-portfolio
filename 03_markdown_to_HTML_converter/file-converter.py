@@ -62,13 +62,13 @@ def markdown_to_html(md_text):
 
 def convert_markdown_to_html():
     if not is_markdown():
-        print("Please use correct command 'markdown'")
+        print("Please use correct command 'markdown'.")
         sys.exit(1)
 
-    if not len(sys.argv[3]) > 3:
-        print("Enter output path or file")
+    validate_outputfile()
+    output_file = sys.argv[3]
     
     md_text = read_markdown_file()
     html = markdown_to_html(md_text)
+    write_file(output_file, html)
 
-    write_file(sys.argv[3], html)

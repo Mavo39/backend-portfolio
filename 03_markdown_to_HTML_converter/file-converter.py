@@ -23,16 +23,21 @@ def write_file(path, content):
         return f.write(content)
     
 def read_markdown_file():
-    if is_valid_inputfile_path() and is_inputfile_markdown():
-        return read_file(sys.argv[2])
-    else:
-        print("This file is not a markdown file.")
+    if not is_valid_inputfile_path():
+        print("This file does not exist.")
+        sys.exit(1)
 
+    if not is_inputfile_markdown():
+        print("This file is not a markdown file.")
+        sys.exit(1)
+        
+    return read_file(sys.argv[2])
+        
 def markdown_to_html(md_text):
-    extentions = [
-        'extra',
-        'codehilite',
-        'toc',
+    extensions = [
+        'extra', 
+        'codehilite', 
+        'toc', 
         'nl2br',
     ]
-    return markdown.markdown(md_text, extensions=extentions)
+    return markdown.markdown(md_text, extensions=extensions)

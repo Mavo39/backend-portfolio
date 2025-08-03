@@ -40,7 +40,8 @@ backend-portfolio/
 | No. | 課題名 | 内容 | 使用言語 | Qiita記事 |
 |-----|-------|-----|---------|----------|
 | 01 | Guess the number game | 標準入力・出力処理 | Python | [記事を読む](https://qiita.com/mabo23/items/b0c5fcf4e2bc35348b7f) |
-| ... | ... | ... | ... | ... |
+| 02 | File Manipulator Program | ファイル操作・標準ライブラリ | Python | [記事を読む](https://qiita.com/mabo23/items/4881206cfa5b658bb8b3) |
+| 03 | Markdown to HTML Program | 仮想環境の構築・外部ライブラリ | Python | [記事を読む](https://qiita.com/mabo23/items/c86f8393ec04e9ae02f6) |
 
 
 

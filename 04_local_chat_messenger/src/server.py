@@ -29,7 +29,7 @@ while True:
     # レスポンスデータ作成・送
     if data_from_client:
         fake_name = fake.name()
-        server_sent_message = f"{fake_name} received a message '{decoded_data}'\n{fake_name} is from {fake.address()}"
+        server_sent_message = f"{fake_name} received a message '{decoded_data}'. {fake_name} is from {fake.address()}."
         server_sent_message_bytes = udp_server_socket.sendto(server_sent_message.encode('utf-8'), client_address)
-        print(f"server sent the below:\n- content: {server_sent_message}\n- content-size: {server_sent_message_bytes} bytes")
+        print(f"\nserver sent the below\n- content: {server_sent_message}\n- content-size: {server_sent_message_bytes} bytes")
     

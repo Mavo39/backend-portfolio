@@ -21,11 +21,11 @@ with udp_client_socket:
     sent_message_bytes = udp_client_socket.sendto(message, server_address)
     print(f"sent content size: {sent_message_bytes} bytes")
 
-    print("\nwaiting to receive server message ... ")
+    print("\nwaiting to receive server message ... \n")
 
     # レスポンス受信
     data_from_server, server_address = udp_client_socket.recvfrom(4096)
     decoded_data = data_from_server.decode('utf-8')
-    print(f"received message: \n- server_address: {server_address}\n- content: {decoded_data}\n- content size: {len(data_from_server)}")
+    print(f"received message\n- server_address: {server_address}\n- content: {decoded_data}\n- content size: {len(data_from_server)} bytes")
 
-print("closing socket")
+print("\nclosing socket\n")

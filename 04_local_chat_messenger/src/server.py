@@ -26,7 +26,7 @@ while True:
     print("reveived message:")
     print(f"- client address: {client_address}\n- content: {decoded_data}\n- content-size: {len(data_from_client)} bytes")
 
-    # レスポンスデータ作成・送
+    # レスポンスデータ作成・送信
     if data_from_client:
         fake_name = fake.name()
         server_sent_message = f"{fake_name} received a message '{decoded_data}'. {fake_name} is from {fake.address()}."

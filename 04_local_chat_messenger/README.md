@@ -76,4 +76,4 @@ Python 3.10以降
 
 
 ## その他
-学習記録をQiitaにまとめています[編集中]()
+学習記録をQiitaにまとめています[Qiita記事はこちら](https://qiita.com/mabo23/items/5dfb0ae6af6bbdaf3486)

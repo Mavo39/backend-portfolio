@@ -1,5 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const net = require('net');
+
+const config = require('../config.json');
+const SERVER_SOCKET_PATH = config['server_socket_path'];
+const client = new net.Socket();
 
 // 関数一覧
 const method_table = {
@@ -226,9 +231,12 @@ try {
         "id" : request_id
     };
     // JSON文字列
-    const convertObjectToJSON = JSON.stringify(requestObject);
-
-    console.log(convertObjectToJSON);
+    const JSONrequest = JSON.stringify(requestObject);
+    // サーバソケットにJSON文字列を送信
+    client.connect(SERVER_SOCKET_PATH, ()=>{
+        client.write(JSONrequest);
+    });
+    
 } catch (error) {
     console.error(error.message);
     process.exit(1);

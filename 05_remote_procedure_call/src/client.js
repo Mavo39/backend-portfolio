@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 // 関数一覧
 const method_table = {
@@ -213,17 +214,21 @@ function updateOnSuccess(request_id){
 }
 
 try {
+    // 引数のバリデーション
     const validatedParams = getValidatedParams(params);
+    // リクエストID生成
     const request_id = getNextRequestId();
-
+    // リクエストオブジェクト生成
     const requestObject = {
         "method" : method,
         "params" : validatedParams,
         "param_types" : selectedMethod.paramTypes,
         "id" : request_id
     };
+    // JSON文字列
+    const convertObjectToJSON = JSON.stringify(requestObject);
 
-    console.log(requestObject);
+    console.log(convertObjectToJSON);
 } catch (error) {
     console.error(error.message);
     process.exit(1);

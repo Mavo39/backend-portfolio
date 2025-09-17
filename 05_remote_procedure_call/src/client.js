@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 // 関数一覧
 const method_table = {
     floor: {
@@ -154,9 +156,74 @@ function getValidatedParams(params) {
     return handleNormalCase(params, expectedTypes);
 }
 
+// リクエストIDを管理するファイルへのパス
+const REQUEST_ID_FILE = path.join(__dirname, '..', 'data', 'request_id.txt');
+
+// ファイルが存在しない場合の補助関数
+function handleFirstRun() {
+    try {
+        fs.writeFileSync(REQUEST_ID_FILE, '0', { mode: 0o600, encoding: 'utf8' });
+        return 0;
+    } catch (error) {
+        throw new Error(`${error.message}`);
+    }
+}
+
+// ファイルが存在しない場合の補助関数
+function handleSubsequentRuns() {
+    try {
+        fs.chmodSync(REQUEST_ID_FILE, 0o600);
+        const data = fs.readFileSync(REQUEST_ID_FILE, 'utf8');
+        // 文字列を数値（10進数）に変換: dataは文字列型のため
+        return parseInt(data, 10);
+    } catch (error) {
+        throw new Error(`${error.message}`);
+    }
+}
+
+// ファイルチェック・リクエストID読み取り 
+function checkFileExistsAndReadRequestIdFromFile() {
+    // ファイルが存在しない場合
+    if (!fs.existsSync(REQUEST_ID_FILE)) {
+        return handleFirstRun();
+    // ファイルが存在する場合
+    } else {
+        return handleSubsequentRuns();
+    }
+}
+
+// 次のリクエストIDを取得
+function getNextRequestId(){
+    return checkFileExistsAndReadRequestIdFromFile() + 1;
+}
+
+// リクエストIDの更新: サーバからレスポンス受信後
+function updateRequestId(request_id){
+    fs.writeFileSync(REQUEST_ID_FILE, request_id.toString(), 'utf8')
+}
+
+// コールバック: サーバレスポンス取得後に実行
+function updateOnSuccess(request_id){
+    try {
+        updateRequestId(request_id);
+        console.log(`updated request id sucessfully\nnew ID: ${request_id}`);
+    } catch(error) {
+        console.error(error.message);
+    }
+}
+
 try {
     const validatedParams = getValidatedParams(params);
-    console.log("Validated parameters:", validatedParams);
+    const request_id = getNextRequestId();
+
+    const requestObject = {
+        "method" : method,
+        "params" : validatedParams,
+        "param_types" : selectedMethod.paramTypes,
+        "id" : request_id
+    };
+
+    console.log(requestObject);
 } catch (error) {
     console.error(error.message);
     process.exit(1);

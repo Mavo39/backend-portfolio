@@ -53,3 +53,5 @@ class RpcServer:
         # レスポンス生成(詳細はresponse_builderで実装)
 
         # レスポンスの送信
+        
+        return

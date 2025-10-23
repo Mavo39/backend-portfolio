@@ -5,25 +5,6 @@ const net = require('net');
 // サーバソケットのファイルパス
 const RPC_SERVER_SOCKET = config['rpc_server_socket_path'];
 
-// 関数一覧
-const method_table = {
-    floor: {
-        param_types: [ "double" ],
-    }, 
-    nroot: {
-        param_types: [ "int", "int" ],
-    },
-    reverse: {
-        param_types: [ "string" ],
-    },
-    validAnagram: {
-        param_types: [ "string", "string" ],
-    },
-    sort: {
-        param_types: [ "string[]" ]  
-    }
-};
-
 console.log(`Available functions: floor, nroot, reverse, validAnagram, sort`);
 console.log('--------------------');
 

@@ -15,7 +15,6 @@ except FileNotFoundError:
     pass
 
 print(f'start server on {rpc_server_address}')
-print('waiting to receive a request ... \n')
 
 # ソケットファイルをバインド
 rpc_server_sock.bind(rpc_server_address)
@@ -24,6 +23,7 @@ rpc_server_sock.bind(rpc_server_address)
 rpc_server_sock.listen(10)
 
 while True:
+    print('waiting to receive a request ... \n')
     client_connection, _ = rpc_server_sock.accept()
 
     try:

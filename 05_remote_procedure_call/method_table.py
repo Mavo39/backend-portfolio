@@ -1,4 +1,4 @@
-from .functions import floor, nroot, reverse, validAnagram, sort
+from functions import floor, nroot, reverse, validAnagram, sort
 
 method_table = {
     "floor": {

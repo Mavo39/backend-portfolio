@@ -15,3 +15,5 @@ const method_table = {
         param_types: [ "string[]" ]  
     }
 };
+
+module.exports = method_table;

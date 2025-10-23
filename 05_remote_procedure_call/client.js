@@ -124,7 +124,7 @@ function createRequest(functionName, params, param_types, id){
 
 async function runConversation(){
     // 関数名入力
-    const functionName = await askQuestion("Input which function you'd like to use: ");
+    const functionName = await askQuestion("Enter which function you'd like to use: ");
     // 関数名の整形
     const convertedFunctionName = functionName.trim();
     // メソッドテーブルで照合

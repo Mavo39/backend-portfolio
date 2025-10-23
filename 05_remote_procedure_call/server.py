@@ -84,9 +84,6 @@ while True:
                 param_types = request_dict['param_types']
                 params = request_dict['params']
                 request_id = request_dict['id']
-
-                print(f'received param_types: {param_types}')
-                print(f'received params: {params}')
                 
                 # 関数の取り出し
                 res = method_table[method]["function"]
@@ -104,7 +101,6 @@ while True:
 
                 # 関数実行
                 result = res(*params)
-                print(f'result data type: {type(result)}')
 
                 # レスポンス作成
                 response = {
@@ -125,5 +121,5 @@ while True:
                 break
 
     finally:
-        print('closing current connection\n')
+        print('\nclosing current connection\n')
         client_connection.close()

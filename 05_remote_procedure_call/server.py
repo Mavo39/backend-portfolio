@@ -1,7 +1,7 @@
 import os
 import socket
 import json
-import method_table
+from method_table import method_table
 
 # 受付ソケットオブジェクト作成
 rpc_server_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)

@@ -1,6 +1,7 @@
 const config = require('./config.json');
 const readline = require('node:readline');
 const net = require('net');
+const method_table = require('./method_table.js');
 
 // サーバソケットのファイルパス
 const RPC_SERVER_SOCKET = config['rpc_server_socket_path'];

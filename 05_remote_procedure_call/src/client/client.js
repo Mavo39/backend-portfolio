@@ -1,243 +1,177 @@
-const fs = require('fs');
-const path = require('path');
+const config = require('./config.json');
+const readline = require('node:readline');
 const net = require('net');
+const method_table = require('./method_table.js');
 
-const config = require('../config.json');
-const SERVER_SOCKET_PATH = config['server_socket_path'];
-const client = new net.Socket();
+// サーバソケットのファイルパス
+const RPC_SERVER_SOCKET = config['rpc_server_socket_path'];
 
-// 関数一覧
-const method_table = {
-    floor: {
-        paramTypes: ["double"],
-        minArgs: 1,
-        maxArgs: 1
-    },
-    nroot: {
-        paramTypes: ["int", "int"],
-        minArgs: 2,
-        maxArgs: 2
-    },
-    reverse: {
-        paramTypes: ["string"],
-        minArgs: 1,
-        maxArgs: 1
-    },
-    validAnagram: {
-        paramTypes: ["string", "string"],
-        minArgs: 2,
-        maxArgs: 2
-    },
-    sort: {
-        paramTypes: ["string[]"],
-        minArgs: 1,
-        maxArgs: Infinity
-    }
-};
+console.log(`Available functions: floor, nroot, reverse, validAnagram, sort`);
+console.log('--------------------');
 
-// 引数のみ取得
-const argv = process.argv.slice(2);
+// コマンドラインからの対話式入力を行なうために必要な機能一式を持ったオブジェクト
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
-// CLIに入力されたメソッド名
-const method = argv[0];
-
-// 選択した関数に対応するオブジェクトを取得
-const selectedMethod = method_table[method];
-
-// 取得した引数
-const params = argv.slice(1);
-
-// 関数に応じた引数の数を検証（問題があれば例外を投げる）
-function validateArgCount(params, selectedMethod) {
-    const min = selectedMethod.minArgs;
-    const max = selectedMethod.maxArgs;
-
-    if (params.length < min) {
-        throw new Error(
-            `Not enough arguments: expected at least ${min}, but got ${params.length}`
-        );
-    }
-
-    if (params.length > max) {
-        throw new Error(
-            `Too many arguments: expected at most ${max}, but got ${params.length}`
-        );
-    }
-}
-
-// 単一パラメータの型を検証
-function isValidParam(param, expectedType){
-    switch(expectedType){
-        case "int":
-            return /^-?\d+$/.test(param.trim());
-
-        case "double":
-            return /^-?\d+(\.\d+)?$/.test(param.trim());
-
-        case "string":
-            // 追加条件: 文字列であり、空でなく、数字を含まないこと
-            if (/\d/.test(param)) {
-                return false;
-            }
-            return typeof param === "string" && param.trim() !== "";
-
-        case "string[]":
-            if (!Array.isArray(param)) return false;
-            // 追加条件: 配列内の全要素が文字列で、空でなく、数字を含まないこと
-            return param.every(p => {
-                if (/\d/.test(p)) return false;               
-                return typeof p === "string" && p.trim() !== ""
-            });
-
-        default:
-            return false;
-    }
-}
-
-// 単一パラメータを型変換
-function convertParam(param, expectedType){
-    switch(expectedType){
-        case "int":
-            return parseInt(param, 10);
-        
-        case "double":
-            return parseFloat(param, 10);
-
-        case "string":
-            return param;
-
-        case "string[]":
-            return param.map(element => element.trim());
-
-        default:
-            return new Error(`error: detected not supported type ${expectedType}`);
-    }
-}
-
-// 単一パラメータの検証と変換
-function validateAndConvertParam(arg, type) {
-    if (!isValidParam(arg, type)) {
-        if (type === "string" || type === "string[]") {
-            throw new Error(`The argument "${arg}" contains numbers but "string" is required`);
-        } else {
-            throw new Error(`"${arg}" does not match expected type "${type}"`);
-        }
-    }
-    return convertParam(arg, type);
-}
-
-// string[] 型の処理
-function handleStringArrayCase(params) {
-    const allValid = params.every(param => isValidParam(param, "string"));
-    if (!allValid) {
-        throw new Error("All arguments must be valid non-numeric strings");
-    }
-    return params.map(param => convertParam(param, "string"));
-}
-
-// string[] 型以外の処理
-function handleNormalCase(params, expectedTypes) {
-    return expectedTypes.map((type, i) => {
-        const arg = params[i];
-        return validateAndConvertParam(arg, type);
+// Promiseを返す
+function askQuestion(query){
+    return new Promise((resolve) => {
+        rl.question(query, (answer) => {
+            resolve(answer);
+        });
     });
 }
 
-// paramsの引数の数チェック・型チェック・型変換を実行
-function getValidatedParams(params) {
-    if (!selectedMethod) throw new Error(`Unknown method: ${method}`);
+// 関数の引数の数を文字列で表示
+function howManyArgumentsAreNeeded(functionName){
+    if(functionName === "sort") return "more than 1";
+    return String(method_table[functionName].param_types.length);
+}
+
+// 引数の数を検証
+function validateArgCount(functionName, params){
+    if(functionName === "sort") return params.length >= 1;
+    else return params.length === method_table[functionName].param_types.length;
+}
+
+// 文字列に数値を含むか検証
+function hasNumbers(str){
+    return /\d/.test(str);
+}
+
+// 単一の値を指定された型に変換
+function convertSingleValue(value, type){
+    switch(type){
+        case 'double':
+            const floatNum = parseFloat(value);
+            if(isNaN(floatNum) || value.trim() !== String(floatNum)){
+                return null;
+            }
+            return floatNum;
+        case 'int':
+            const intNum = parseInt(value, 10);
+            if(isNaN(intNum) || value.trim() !== String(intNum)){
+                return null;
+            }
+            return intNum;
+        case 'string':
+            if(hasNumbers(value)){
+                return null;
+            }
+            return value;
+        default:
+            return null;
+    }
+}
+
+// 複数の引数を型配列にしたがって変換
+function parseParams(params, param_types){
+    let convertedParams = [];
+
+    // sortの場合
+    if(param_types.length === 1 && param_types[0] === 'string[]'){
+        for(let i = 0; i < params.length; i++){
+            const converted = convertSingleValue(params[i], 'string');
+            if(converted === null){
+                return null;
+            }
+            convertedParams.push(converted);
+        }
+        return convertedParams;
+    }
+
+    // 通常の引数の場合
+    for(let i = 0; i < params.length; i++){
+        const converted = convertSingleValue(params[i], param_types[i]);
+        if(converted === null){
+            return null;
+        }
+        convertedParams.push(converted);
+    }
+
+    return convertedParams;
+}
+
+// リクエスト作成
+function createRequest(functionName, params, param_types, id){
+    return request = {
+        "method": functionName,
+        "params": params,
+        "param_types": param_types,
+        "id": id
+    };
+}
+
+async function runConversation(){
+    // 関数名入力
+    const functionName = await askQuestion("Enter which function you'd like to use: ");
+    // 関数名の整形
+    const convertedFunctionName = functionName.trim();
+    // メソッドテーブルで照合
+    const method_info = method_table[convertedFunctionName];
+    // メソッドの存在確認
+    if(!method_info){
+        console.log("method not found");
+        rl.close();
+        return;
+    } 
+
+    // 関数名に対する引数の数を明示
+    const argumentCount = howManyArgumentsAreNeeded(convertedFunctionName);
+
+    let neededArgCount;
+    if(argumentCount === "1") neededArgCount = "Need 1 parameter";
+    else neededArgCount = `Need ${argumentCount} parameter`;
+
+    console.log(neededArgCount);
+
+    // 引数入力
+    const params = await askQuestion("Enter parameters for the function you chose: ");
+    // 引数の整形
+    let converted_params = params.split(" ").filter(n => n);
 
     // 引数の数チェック
-    validateArgCount(params, selectedMethod);
+    const isArgCountCorrect = validateArgCount(convertedFunctionName, converted_params);
+    if(!isArgCountCorrect){
+        console.log("Parameter count does not match")
+        rl.close();
+        return;
+    }
 
-    // 関数が期待するデータ型
-    const expectedTypes = selectedMethod.paramTypes;
+    // 引数のデータ型
+    const param_types = method_info.param_types;
+    // param_typesに応じた型変換
+    const parsedParams = parseParams(converted_params, param_types);
+    if(parsedParams === null){
+        console.log("Parameter data type is not correct")
+        rl.close();
+        return; 
+    }
+
+    // リクエストフォーマット
+    const request = createRequest(convertedFunctionName, parsedParams, param_types, 1);
     
-    // string[] 型の場合
-    if (expectedTypes.length === 1 && expectedTypes[0] === "string[]") {
-        return handleStringArrayCase(params);
-    }
+    // JSON化
+    const requestJSON = JSON.stringify(request);
+        
+    console.log(`\nsending request: ${requestJSON}`);
 
-    // 他の型の場合
-    return handleNormalCase(params, expectedTypes);
-}
-
-// リクエストIDを管理するファイルへのパス
-const REQUEST_ID_FILE = path.join(__dirname, '..', 'data', 'request_id.txt');
-
-// ファイルが存在しない場合の補助関数
-function handleFirstRun() {
-    try {
-        fs.writeFileSync(REQUEST_ID_FILE, '0', { mode: 0o600, encoding: 'utf8' });
-        return 0;
-    } catch (error) {
-        throw new Error(`${error.message}`);
-    }
-}
-
-// ファイルが存在しない場合の補助関数
-function handleSubsequentRuns() {
-    try {
-        fs.chmodSync(REQUEST_ID_FILE, 0o600);
-        const data = fs.readFileSync(REQUEST_ID_FILE, 'utf8');
-        // 文字列を数値（10進数）に変換: dataは文字列型のため
-        return parseInt(data, 10);
-    } catch (error) {
-        throw new Error(`${error.message}`);
-    }
-}
-
-// ファイルチェック・リクエストID読み取り 
-function checkFileExistsAndReadRequestIdFromFile() {
-    // ファイルが存在しない場合
-    if (!fs.existsSync(REQUEST_ID_FILE)) {
-        return handleFirstRun();
-    // ファイルが存在する場合
-    } else {
-        return handleSubsequentRuns();
-    }
-}
-
-// 次のリクエストIDを取得
-function getNextRequestId(){
-    return checkFileExistsAndReadRequestIdFromFile() + 1;
-}
-
-// リクエストIDの更新: サーバからレスポンス受信後
-function updateRequestId(request_id){
-    fs.writeFileSync(REQUEST_ID_FILE, request_id.toString(), 'utf8')
-}
-
-// コールバック: サーバレスポンス取得後に実行
-function updateOnSuccess(request_id){
-    try {
-        updateRequestId(request_id);
-        console.log(`updated request id sucessfully\nnew ID: ${request_id}`);
-    } catch(error) {
-        console.error(error.message);
-    }
-}
-
-try {
-    // 引数のバリデーション
-    const validatedParams = getValidatedParams(params);
-    // リクエストID生成
-    const request_id = getNextRequestId();
-    // リクエストオブジェクト生成
-    const requestObject = {
-        "method" : method,
-        "params" : validatedParams,
-        "param_types" : selectedMethod.paramTypes,
-        "id" : request_id
-    };
-    // JSON文字列
-    const JSONrequest = JSON.stringify(requestObject);
-    // サーバソケットにJSON文字列を送信
-    client.connect(SERVER_SOCKET_PATH, ()=>{
-        client.write(JSONrequest);
+    // JSONデータ送信
+    const client = net.connect(RPC_SERVER_SOCKET, () => {
+        client.write(requestJSON);
     });
-    
-} catch (error) {
-    console.error(error.message);
-    process.exit(1);
+
+    // JSONデータ受信
+    client.on('data', data => {
+        const responseObject = JSON.parse(data);
+        const responseJSON = JSON.stringify(responseObject);
+        console.log(`received response: ${responseJSON}`);
+        console.log(`result: ${responseObject["result"]}`);
+    })
+
+    rl.close(); 
 }
+
+runConversation();

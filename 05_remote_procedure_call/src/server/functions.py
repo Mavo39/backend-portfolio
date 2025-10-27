@@ -1,17 +1,16 @@
 import math
-from typing import List
 
-def floor(x: float) -> int:
+def floor(x):
     return math.floor(x)
 
-def nroot(n: int, x: int) -> int:
+def nroot(n, x) -> int:
     return round(x ** (1/n))
 
-def reverse(s: str) -> str:
+def reverse(s):
     return s[::-1]
 
-def validAnagram(str1: str, str2: str) -> bool:
+def validAnagram(str1, str2):
     return sorted(str1) == sorted(str2)
 
-def sort(strArr: List[str]) -> List[str]:
+def sort(*strArr):
     return sorted(strArr)

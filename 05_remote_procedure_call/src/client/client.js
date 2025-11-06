@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('../../config.json');
 const readline = require('node:readline');
 const net = require('net');
 const method_table = require('./method_table.js');
@@ -169,7 +169,7 @@ async function runConversation(){
         const responseJSON = JSON.stringify(responseObject);
         console.log(`received response: ${responseJSON}`);
         console.log(`result: ${responseObject["result"]}`);
-    })
+    })  
 
     rl.close(); 
 }

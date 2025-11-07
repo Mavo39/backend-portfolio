@@ -1,6 +1,7 @@
 import os
 import socket
 import json
+import sys
 from method_table import method_table
 from pathlib import Path
 
@@ -9,10 +10,20 @@ rpc_server_sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 
 root_dir = Path(__file__).parent.parent.parent
 config_path = root_dir / 'config.json'
-config = json.load(open(config_path))
 
+# 設定ファイルのロード
+try:
+    with open(config_path) as config_file:
+        config = json.load(config_file)
+
+except FileNotFoundError:
+    print(f'エラー: 設定ファイルが見つかりませんでした\n{config_path}')
+    sys.exit(1)
+
+# /tmp/server.sockを設定
 rpc_server_address = config['rpc_server_socket_path']
 
+# 旧受付ソケットファイルの削除
 try:
     os.unlink(rpc_server_address)
 except FileNotFoundError:

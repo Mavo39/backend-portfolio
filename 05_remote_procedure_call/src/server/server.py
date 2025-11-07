@@ -49,6 +49,10 @@ while True:
     print('waiting to receive a request ... \n')
     client_connection, _ = rpc_server_sock.accept()
 
+    if input() == "exit":
+        client_connection.close()
+        break
+
     try:
         data = client_connection.recv(4096)
         request_dict = json.loads(data)

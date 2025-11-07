@@ -43,15 +43,12 @@ def send_error_response(connection, message, request_id):
         "request_id": request_id
     }
     errorJSON = json.dumps(error_response)
-    connection.sendall(errorJSON.encode('utf-8'))
+    byte_errorJSON = errorJSON.encode('utf-8')
+    connection.sendall(byte_errorJSON)
 
 while True:
     print('waiting to receive a request ... \n')
     client_connection, _ = rpc_server_sock.accept()
-
-    if input() == "exit":
-        client_connection.close()
-        break
 
     try:
         data = client_connection.recv(4096)

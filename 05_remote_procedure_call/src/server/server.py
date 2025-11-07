@@ -37,6 +37,14 @@ rpc_server_sock.bind(rpc_server_address)
 # バックログキューの作成
 rpc_server_sock.listen(10)
 
+def send_error_response(connection, message, request_id):
+    error_response = {
+        "error_message": message,
+        "request_id": request_id
+    }
+    errorJSON = json.dumps(error_response)
+    connection.sendall(errorJSON.encode('utf-8'))
+
 while True:
     print('waiting to receive a request ... \n')
     client_connection, _ = rpc_server_sock.accept()

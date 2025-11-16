@@ -42,12 +42,13 @@ backend-portfolio/
 | 01 | Guess the number game | 標準入力・出力処理 | Python | [記事を読む](https://qiita.com/mabo23/items/b0c5fcf4e2bc35348b7f) |
 | 02 | File Manipulator Program | ファイル操作・標準ライブラリ | Python | [記事を読む](https://qiita.com/mabo23/items/4881206cfa5b658bb8b3) |
 | 03 | Markdown to HTML Program | 仮想環境の構築・外部ライブラリ | Python | [記事を読む](https://qiita.com/mabo23/items/c86f8393ec04e9ae02f6) |
-
-
+| 04 | CLI Messeage App | CLIを使ったメッセージアプリ | Python | [記事を読む](https://qiita.com/mabo23/items/5dfb0ae6af6bbdaf3486) |
+| 05 | Remote Procedure Call | 異なる言語間でのデータ交換 | Python | [記事を読む](https://qiita.com/mabo23/items/c1b495e250a93e707a29) |
 
 ## 学習スタンス
 
 現場でも役立つ考え方・設計力を身につけるために、以下の方針で課題に取り組んでいます。  
+
 - 1課題ごとに **「タスクの分解 → 実装方針 → 実装 → 振り返り」** を徹底  
 - Qiita記事にて、**課題の解説**を記録  
 - コードだけでなく、**考え方や学びのプロセス**を重視

@@ -155,4 +155,4 @@ Python 3.10以降
 
 ## その他
 
-学習記録をQiitaにまとめています[Qiita記事準備中]()
+学習記録をQiitaにまとめています[Qiita記事はこちら](https://qiita.com/mabo23/items/c1b495e250a93e707a29)
